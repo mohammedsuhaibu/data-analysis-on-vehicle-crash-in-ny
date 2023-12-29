@@ -1,0 +1,57 @@
+Three data sets were obtained from NYC OpenDATA: Crashes, Person and Vehicles.
+https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95
+https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Person/f55k-p6yu
+https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Vehicles/bm4k-52h4
+
+
+Objective: 
+The datasets needed to be connected to be used all together.
+- Step 1: Files were named the following PERSON_0NF.csv, VEHICLE_0NF.csv, CRASH_0NF.csv
+- Step 2: Imported datasets into SQL
+- Step 3: Filtered out varaibles needed and connect the tables together to create consolidated dataset
+
+1. nycolpeople.sql
+
+- Step 1: Table Creation (PERSON_1NF):
+  - Created a table PERSON_1NF with essential person-related columns.
+  - Mapped and filtered data from PERSON_0NF, excluding specific roles.
+
+2. nycolvehicle.sql
+
+- Step 2: Table Creation (VEHICLE_1NF):
+  - Created a table VEHICLE_1NF with key vehicle-related columns.
+  - Mapped values for PRIMARY_CONTRIBUTING_FACTOR based on conditions.
+  - Filtered out records with null VEHICLE_CATEGORY.
+
+3. nycolcrash.sql
+
+- Step 3: Table Creation (CRASH_1NF):
+  - Created a table CRASH_1NF with collision details.
+  - Converted and filtered date and time data, limiting to the first 100 rows.
+
+4. nycolnorm.sql
+
+- Step 4: Table Creation (CRASH_2NF, VEHICLE_2NF, PERSON_2NF):
+  - Created normalized tables by removing redundancy.
+  - Added foreign key constraints between tables.
+  - Copied data from previous tables into the new normalized ones.
+
+5. nycolmerge.sql
+
+- Step 5: Table Creation (CONSOLIDATED):
+  - Created a table CONSOLIDATED by merging data from multiple tables.
+  - Utilized LEFT JOIN to connect tables based on common identifiers.
+
+6. INJURY_PER_COUNTY_BY_VEHICLE_CATEGORY.sql
+
+- Step 6: Table Creation (INJURY_PER_COUNTY_BY_VEHICLE_CATEGORY):
+  - Created a table showing injury counts per county and vehicle category.
+  - Filtered out unspecified injuries and grouped data accordingly.
+
+7. PERSON_INJURED_BY_SEX.sql
+
+- Step 7: Table Creation (PERSON_INJURED_BY_SEX):
+  - Created a table displaying counts of people injured or killed by sex and borough.
+  - Used UNION to include a row for the grand total.
+  - Filtered records based on injury status and sex.
+
